@@ -1,7 +1,7 @@
 import com.github.tomakehurst.wiremock.WireMockServer;
 import com.github.tomakehurst.wiremock.client.WireMock;
-import com.swipjobs.kirandeep.SwipeJobsApplication;
-import com.swipjobs.kirandeep.response.ErrorResponse;
+import com.swipejobs.kirandeep.SwipeJobsApplication;
+import com.swipejobs.kirandeep.response.ErrorResponse;
 import org.json.JSONException;
 import org.junit.jupiter.api.Test;
 import org.skyscreamer.jsonassert.JSONAssert;
