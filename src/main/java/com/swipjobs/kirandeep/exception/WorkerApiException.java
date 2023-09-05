@@ -9,7 +9,6 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = false)
 public class WorkerApiException extends RuntimeException {
 
-
     private String errorDetails;
     private String traceId;
 

@@ -24,6 +24,13 @@ public class JobService {
 
     @Autowired
     private WebClient webClient;
+    private Function<Throwable, Throwable> errorHandler = (ex) -> {
+        log.error("error while fetching Jobs", ex);
+        return new WorkerApiException("Something went wrong with Job API", WorkerUtil.getUUID());
+    };
+    private Consumer<List<Job>> onSuccessHandler = (res) -> {
+        log.info(res.toString());
+    };
 
     public List<Job> getJobs() {
         //TODO try to make common place to hit
@@ -38,13 +45,4 @@ public class JobService {
 
         return jobs;
     }
-
-    private Function<Throwable, Throwable> errorHandler = (ex) -> {
-        log.error("error while fetching Jobs", ex);
-        return new WorkerApiException("Something went wrong with Job API", WorkerUtil.getUUID());
-    };
-
-    private Consumer<List<Job>> onSuccessHandler = (res) -> {
-        log.info(res.toString());
-    };
 }

@@ -22,16 +22,23 @@ import java.util.function.Function;
 @Service
 public class WorkerService {
 
+    Function<Throwable, Throwable> errorHandler = (ex) -> {
+        log.error("error while fetching workers", ex);
+        return new WorkerApiException("Something went wrong with workers API", WorkerUtil.getUUID());
+    };
+    Consumer<List<Worker>> onSuccessHandler = (res) -> {
+        log.info(res.toString());
+    };
     @Value("${api.workers.uri}")
     private String URI_WORKERS;
-
     @Autowired
     private WebClient webClient;
 
     public Worker getWorker(long workerId) {
         Mono<List<Worker>> result = webClient.get().uri(URI_WORKERS)
                 .retrieve()
-                .bodyToMono(new ParameterizedTypeReference<List<Worker>>() {})
+                .bodyToMono(new ParameterizedTypeReference<List<Worker>>() {
+                })
                 .onErrorMap(errorHandler)
                 .doOnSuccess(onSuccessHandler);
 
@@ -41,18 +48,8 @@ public class WorkerService {
 
         return worker.orElseThrow(() -> {
             log.error("Worker not found with id: {}", workerId);
-            throw new WorkerNotFoundException(workerId, "Worker not found with ID:"+workerId, WorkerUtil.getUUID());
+            throw new WorkerNotFoundException(workerId, "Worker not found with ID:" + workerId, WorkerUtil.getUUID());
         });
     }
-
-
-    Function<Throwable, Throwable> errorHandler = (ex) -> {
-        log.error("error while fetching workers", ex);
-        return new WorkerApiException("Something went wrong with workers API", WorkerUtil.getUUID());
-    };
-
-    Consumer<List<Worker>> onSuccessHandler = (res) -> {
-        log.info(res.toString());
-    };
 
 }

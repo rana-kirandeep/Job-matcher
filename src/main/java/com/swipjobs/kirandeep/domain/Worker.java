@@ -26,7 +26,7 @@ public class Worker {
     private Name name;
     private int age;
     private String guid;
-    private int userId;
+    private long userId;
 }
 
 

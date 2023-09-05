@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.Comparator;
 import java.util.List;
-import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 @Service
@@ -28,7 +27,7 @@ public class MatcherService {
     @Autowired
     private JobService jobService;
 
-   private Comparator<Job> billRateComparator = Comparator.comparing(Job::getBillRate).reversed();
+    private Comparator<Job> billRateComparator = Comparator.comparing(Job::getBillRate).reversed();
 
     public List<Job> findMatchingJobs(long workerId) {
 

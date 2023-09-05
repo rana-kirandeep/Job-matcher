@@ -23,7 +23,7 @@ public class AppConfiguration {
     }
 
     @Bean
-    public WebClient webClient(){
+    public WebClient webClient() {
         //TODO add connection pooling configuration here
         return WebClient.builder()
                 .baseUrl(baseUrl)

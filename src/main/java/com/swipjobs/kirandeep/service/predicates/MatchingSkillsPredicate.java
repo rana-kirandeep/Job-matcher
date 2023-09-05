@@ -12,7 +12,7 @@ public class MatchingSkillsPredicate {
     }
 
     private static boolean hasMatchingSkills(Job job, Worker worker) {
-        if(job == null || worker ==null){
+        if (job == null || worker == null) {
             throw new RuntimeException("Invalid argument");
         }
         return worker.getSkills().contains(job.getJobTitle());

@@ -12,7 +12,7 @@ public class RequiredCertificatesPredicate {
     }
 
 
-    private static  boolean hasRequiredCertificates(Job job, Worker worker) {
+    private static boolean hasRequiredCertificates(Job job, Worker worker) {
 
         return worker.getCertificates().containsAll(job.getRequiredCertificates());
 
