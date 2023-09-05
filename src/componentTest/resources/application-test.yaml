@@ -1,0 +1,12 @@
+job:
+  match:
+    limit: '3'
+api:
+  baseUrl: 'test'
+  workers:
+    uri: '/api/workers'
+  jobs:
+    uri: '/api/jobs'
+
+
+

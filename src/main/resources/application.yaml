@@ -1,0 +1,10 @@
+job:
+  match:
+    limit: '3'
+
+api:
+  baseUrl: 'https://test.swipejobs.com'
+  workers:
+    uri: '/api/workers'
+  jobs:
+    uri: '/api/jobs'

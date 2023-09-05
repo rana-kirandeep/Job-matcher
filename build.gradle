@@ -1,0 +1,89 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '2.7.14'
+    id 'io.spring.dependency-management' version '1.0.15.RELEASE'
+}
+
+group = 'com.swipejobs'
+version = '0.0.1-SNAPSHOT'
+
+java {
+    sourceCompatibility = '17'
+}
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springdoc:springdoc-openapi-ui:1.7.0'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+    implementation 'org.springframework.boot:spring-boot-starter-webflux'
+
+    annotationProcessor 'org.projectlombok:lombok'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation "com.github.tomakehurst:wiremock-jre8:2.30.1"
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
+
+//Added Component Test folder to project src path
+sourceSets {
+    componentTest {
+        java.srcDir "$projectDir/src/componentTest/java"
+        resources.srcDir "$projectDir/src/componentTest/resources"
+        compileClasspath += main.output + test.output
+        runtimeClasspath += main.output + test.output
+    }
+}
+
+
+// run the componentTest/** tests
+task componentTest(type: Test) {
+    description = 'Runs component tests'
+    group = 'verification'
+    testClassesDirs = sourceSets.componentTest.output.classesDirs
+    classpath = sourceSets.componentTest.runtimeClasspath
+    outputs.upToDateWhen { false }
+}
+
+// print tests out to console as they run
+def testLogging = {
+    afterTest { desc, result ->
+        logger.quiet "Test ${desc.name} [${desc.className}] with result: ${result.resultType}"
+    }
+}
+
+test {
+    configure testLogging
+    useJUnitPlatform()
+}
+
+componentTest {
+    configure testLogging
+    useJUnitPlatform()
+}
+
+//Provide needed dependency to component test
+configurations {
+    componentTestImplementation.extendsFrom testImplementation
+    componentTestRuntime.extendsFrom testRuntime
+}
+
+processComponentTestResources {
+    duplicatesStrategy = 'include'
+}
+
+check.dependsOn componentTest
+componentTest.mustRunAfter test

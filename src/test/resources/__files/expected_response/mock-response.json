@@ -1,0 +1,7 @@
+{
+  "timestamp": "2023-09-05T19:02:33.464022",
+  "code": "1001",
+  "errorMessage": "Worker not found",
+  "details": "Worker not found with ID:1986",
+  "traceId": "7b6d7078-75ab-4831-a282-adde759922e0"
+}
