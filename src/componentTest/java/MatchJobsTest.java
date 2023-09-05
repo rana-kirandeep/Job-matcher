@@ -39,7 +39,7 @@ class MatchJobsTest {
     private String URI_WORKERS;
     @Value("${api.jobs.uri}")
     private String URI_JOBS;
-    @LocalServerPort
+    @Value("${local.server.port}")
     private Integer port;
     @Autowired
     private ResourceLoader resourceLoader;
