@@ -6,7 +6,6 @@ import com.swipejobs.kirandeep.exception.WorkerNotActiveException;
 import com.swipejobs.kirandeep.exception.WorkerNotFoundException;
 import com.swipejobs.kirandeep.service.predicates.*;
 import com.swipejobs.kirandeep.util.WorkerUtil;
-import com.swipjobs.kirandeep.service.predicates.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

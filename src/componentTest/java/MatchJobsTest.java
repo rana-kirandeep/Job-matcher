@@ -31,20 +31,16 @@ import static org.hamcrest.Matchers.is;
 @ActiveProfiles("test")
 class MatchJobsTest {
 
+    @Autowired
+    WireMockServer wireMockServer;
+    @Autowired
+    TestRestTemplate testRestTemplate;
     @Value("${api.workers.uri}")
     private String URI_WORKERS;
     @Value("${api.jobs.uri}")
     private String URI_JOBS;
-    @Autowired
-    WireMockServer wireMockServer;
-
     @LocalServerPort
     private Integer port;
-
-    @Autowired
-    TestRestTemplate testRestTemplate;
-
-
     @Autowired
     private ResourceLoader resourceLoader;
 

@@ -1,7 +1,6 @@
 package com.swipejobs.kirandeep.service;
 
 import com.swipejobs.kirandeep.domain.*;
-import com.swipjobs.kirandeep.domain.*;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -110,7 +109,7 @@ class MatcherServiceTest {
                         .longitude("14.316602")
                         .build())
                 .userId(10)
-                .skills(List.of("title3", "title10", "title11","title10"))
+                .skills(List.of("title3", "title10", "title11", "title10"))
                 .build();
 
         return worker;
