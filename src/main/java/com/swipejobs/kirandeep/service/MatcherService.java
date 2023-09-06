@@ -65,7 +65,7 @@ public class MatcherService {
             throw new WorkerNotFoundException(workerId, "Worker not found with ID:" + workerId, WorkerUtil.getUUID());
         }
         if (!worker.isActive()) {
-            log.error("Worker is not active with id: {}" + workerId);
+            log.error("Worker is not active with id: {}", workerId);
             throw new WorkerNotActiveException(workerId, "Worker not active with ID:" + workerId, WorkerUtil.getUUID());
         }
     }
