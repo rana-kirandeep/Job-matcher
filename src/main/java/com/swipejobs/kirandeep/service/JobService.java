@@ -1,6 +1,7 @@
 package com.swipejobs.kirandeep.service;
 
 import com.swipejobs.kirandeep.domain.Job;
+import com.swipejobs.kirandeep.exception.JobApiException;
 import com.swipejobs.kirandeep.exception.WorkerApiException;
 import com.swipejobs.kirandeep.util.WorkerUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -26,7 +27,7 @@ public class JobService {
     private WebClient webClient;
     private Function<Throwable, Throwable> errorHandler = (ex) -> {
         log.error("error while fetching Jobs", ex);
-        return new WorkerApiException("Something went wrong with Job API", WorkerUtil.getUUID());
+        return new JobApiException("Something went wrong with Job API", WorkerUtil.getUUID());
     };
     private Consumer<List<Job>> onSuccessHandler = (res) -> {
         log.info(res.toString());

@@ -29,6 +29,7 @@ public class GlobalExceptionHandler {
     public static final String ERROR_WORKER_NOT_ACTIVE = "1003";
 
     public static final String ERROR_VALIDATION_FAIL = "1004";
+    public static final String ERROR_JOB_API = "1005";
 
 
     @Autowired
@@ -36,7 +37,7 @@ public class GlobalExceptionHandler {
 
 
     @ExceptionHandler(WorkerNotFoundException.class)
-    public ResponseEntity handleApiException(WorkerNotFoundException ex) {
+    public ResponseEntity handleWorkerNotFoundException(WorkerNotFoundException ex) {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new
                 ErrorResponse(LocalDateTime.now(), ERROR_WORKER_NOT_FOUND,
                 messageSource.getMessage(ERROR_WORKER_NOT_FOUND, null, Locale.ENGLISH),
@@ -44,7 +45,7 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(WorkerNotActiveException.class)
-    public ResponseEntity handleApiException(WorkerNotActiveException ex) {
+    public ResponseEntity handleWorkerNotActiveException(WorkerNotActiveException ex) {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new
                 ErrorResponse(LocalDateTime.now(), ERROR_WORKER_NOT_ACTIVE,
                 messageSource.getMessage(ERROR_WORKER_NOT_ACTIVE, null, Locale.ENGLISH),
@@ -52,10 +53,18 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(WorkerApiException.class)
-    public ResponseEntity handleApiException(WorkerApiException ex) {
+    public ResponseEntity handleWorkerApiException(WorkerApiException ex) {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new
                 ErrorResponse(LocalDateTime.now(), ERROR_WORKER_API,
                 messageSource.getMessage(ERROR_WORKER_API, null, Locale.ENGLISH),
+                ex.getErrorDetails(), ex.getTraceId()));
+    }
+
+    @ExceptionHandler(JobApiException.class)
+    public ResponseEntity handleJobApiException(JobApiException ex) {
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new
+                ErrorResponse(LocalDateTime.now(), ERROR_JOB_API,
+                messageSource.getMessage(ERROR_JOB_API, null, Locale.ENGLISH),
                 ex.getErrorDetails(), ex.getTraceId()));
     }
 
